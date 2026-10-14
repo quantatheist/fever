@@ -61,9 +61,8 @@ Your CMS or blogging software might be interfering with the request. Try adding 
 
 ```
 <IfModule mod_rewrite.c>
-RewriteEngine   off
+RewriteEngine off
 </IfModule>
-
 ```
 
 That might fix it. If not you should refer to your CMS, blogging software or host’s documentation. [#](#faq-404)
@@ -109,7 +108,6 @@ This is usually the result of an overzealous `mod_security` rule. You ca try dis
 SecFilterEngine Off
 SecFilterScanPOST Off
 </IfModule>
-
 ```
 
 It has come to my attention that a recent update to either Apache or the `mod_security` module seems to prevent per directory `.htaccess`-based overrides so you may need to ask your host about disabling it for that directory. [#](#faq-403)
@@ -136,10 +134,10 @@ You can find a list of changes by date and version [here](https://feedafever.com
 
 I don't know if it's the best way but here's some screenshots of my Fever Fluid.app relevant preferences that work for me.
 
-*   [General](https://feedafever.com/images/fluid-general.png) (earlier versions of Fluid.app)
-*   [Behavior](https://feedafever.com/images/fluid-behavior.png) (later versions of Fluid.app)
-*   [Tabs](https://feedafever.com/images/fluid-tabs.png)
-*   [Advanced](https://feedafever.com/images/fluid-advanced.png)
+* [General](https://feedafever.com/images/fluid-general.png) (earlier versions of Fluid.app)
+* [Behavior](https://feedafever.com/images/fluid-behavior.png) (later versions of Fluid.app)
+* [Tabs](https://feedafever.com/images/fluid-tabs.png)
+* [Advanced](https://feedafever.com/images/fluid-advanced.png)
 
 [#](#faq-fluid)
 

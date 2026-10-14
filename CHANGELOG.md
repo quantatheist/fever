@@ -2,7 +2,48 @@
 
 This document contains the full history of Fever.
 
-Note that this repository's codebase only contains a copy of v1.39.
+Note that this repository's codebase only contains a copy of v1.39 and onwards.
+
+## v1.44 (2026-01-18)
+
+- Fix support to optionally check for updates from GitHub introduced in Fever v1.41; check for tags instead of releases.
+- Fix edge case where feed item title element is undefined and item title ends up an empty string:
+  - Move fallback title (…) to view render instead of preserving it in database.
+  - Trim the feed item title in case it's just whitespace.
+
+## v1.43 (2025-03-03)
+
+- Fix broken feed item link accidentally introduced in Fever v1.42.
+
+## v1.42 (2025-02-28)
+
+- Add suport for feed item image elements. Reader will search the following nodes for images to prepend to the feed item description:
+  - `<link type="image/*" href="*">`
+  - `<enclosure type="image/*" url="*">`
+  - `<media:content type="image/*" url="*">`
+  - `<media:thumbnail url="*">`
+- Trim feed item description.
+- Fix apperance of search input for Chrome and Firefox on desktop and mobile.
+
+## v1.41 (2023-08-27)
+
+- Add support to optionally check for updates from GitHub:
+  - This feature will only check for an update. It will _not_ update your installation.
+  - If the global constant `FEVER_GITHUB_REPOSITORY` is defined (`<owner>/<repo>`), Fever will check the latest release from the given GitHub repository via the GitHub REST API.
+  - The optional global constant `FEVER_GITHUB_API_TOKEN ` can be used to extend the rate limit.
+  - These two constants can be added to one of your configuration files (`config/db.php` or `config/key.php`).
+- Replace URL to `feedafever.com/anon/` with `rel="noreferrer"` attribute
+- Replace URL to `todone.txt` with URL to `CHANGELOG.md` at GitHub repository
+- Fix user agent sniffing:
+  - Some browsers (such as Firefox) on mobile/tablet devices might not include the `AppleWebKit` segment but might instead include a `Mobile` or `Tablet` platform segment.
+- Fix mobile portrait detection:
+  - Replace deprecated event `Window:orientationchange` with `ScreenOrientation:change`.
+  - Replace portrait detection to compare width against height instead of looking for specific (outdated) widths.
+- Add Laravel Valet environment file (`.valetrc`)
+- Clean-up quoted and interpolated strings
+- Update PHP compatibility:
+  - Indent doc strings supported by PHP 7.3
+
 
 ## v1.40 (2023-02-08)
 
@@ -15,17 +56,18 @@ Note that this repository's codebase only contains a copy of v1.39.
 - Fix parsing of "set-cookie" response header
 - Fix mixing strings and integers
 - Update third-party libraries:
-	- Update PCLZip 2.6.0 → 2.8.3
-	- Update SimplePie ~1.1.0 → 1.5.8
+  - Update PCLZip 2.6.0 → 2.8.3
+  - Update SimplePie ~1.1.0 → 1.5.8
 - Update PHP compatibility:
-	- Avoid throwing PDO exceptions; the default as of PHP 8.0
-	- Fix optional arguments; deprecated in PHP 8.0
-	- Replace `join()` with `implode()` and fix parameter order; deprecated in PHP 7.4
-	- Replace curly braces for offset access; deprecated in PHP 7.4
-	- Fix switch break; deprecated in PHP 7.3
-	- Rename constructors; deprecated in PHP 7.0
-	- Remove magic quotes; deprecated in PHP 5.4
+  - Avoid throwing PDO exceptions; the default as of PHP 8.0
+  - Fix optional arguments; deprecated in PHP 8.0
+  - Replace `join()` with `implode()` and fix parameter order; deprecated in PHP 7.4
+  - Replace curly braces for offset access; deprecated in PHP 7.4
+  - Fix switch break; deprecated in PHP 7.3
+  - Rename constructors; deprecated in PHP 7.0
+  - Remove magic quotes; deprecated in PHP 5.4
 - Update `is_development_copy()` to replace `.dev` with `.test` since the former became a real TLD in 2019
+
 
 ## v1.39 (2014-09-22)
 
@@ -52,18 +94,18 @@ Note that this repository's codebase only contains a copy of v1.39.
 ## v1.36 (2014-02-05)
 
 - reports anonymous server capabilities to feedafever.com during gateway requests so I can make informed decisions about future development
-	data collected (see `Fever->capabilities()` for implementation):
-	- `fever_version`
-	- `php_version`
-	- `mysql_client_version`
-	- `mysql_server_version`
-	- `has_pdo_mysql`
-	- `has_mysqli`
-	- `has_mysql`
-	- `has_iconv`
-	- `has_mbstring`
-	- `has_gd_png`
-	- `has_curl`
+  data collected (see `Fever->capabilities()` for implementation):
+  - `fever_version`
+  - `php_version`
+  - `mysql_client_version`
+  - `mysql_server_version`
+  - `has_pdo_mysql`
+  - `has_mysqli`
+  - `has_mysql`
+  - `has_iconv`
+  - `has_mbstring`
+  - `has_gd_png`
+  - `has_curl`
 - removed use of deprecated e flag with `preg_replace`
 - increased request timeout when requesting updates to accommodate the larger zip (caused by @2x assets)
 - added SIDB to eliminate dependency on the deprecated `mysql_*` family of functions
@@ -83,12 +125,12 @@ Note that this repository's codebase only contains a copy of v1.39.
 
 - STOPGAP: deleted retinafication .htaccess file on problem servers
 
-	If you updated to 1.33 and images or CSS now 404, you
-	have a problem server. I believe the problem involves
-	`mod_rewrite`'s default RewriteBase or possibly Apache's
-	include paths. Not sure how to fix just yet. Manually
-	defining the RewriteBase to the expected value results
-	in 500 errors in problem servers. Hence this stopgap.
+  If you updated to 1.33 and images or CSS now 404, you
+  have a problem server. I believe the problem involves
+  `mod_rewrite`'s default RewriteBase or possibly Apache's
+  include paths. Not sure how to fix just yet. Manually
+  defining the RewriteBase to the expected value results
+  in 500 errors in problem servers. Hence this stopgap.
 
 
 ## v1.33 (2014-01-24)
@@ -98,9 +140,9 @@ Note that this repository's codebase only contains a copy of v1.39.
 - added retina support to desktop and mobile views
 - added hooks for persistent style customization
 
-	Just add an `override.css` or `override-mobile.css` to the root `fever/` directory.
-	Copy selectors from existing CSS and use `!important` where necessary.
-	NOTE: Persists through updates but otherwise unsupported.
+  Just add an `override.css` or `override-mobile.css` to the root `fever/` directory.
+  Copy selectors from existing CSS and use `!important` where necessary.
+  NOTE: Persists through updates but otherwise unsupported.
 
 
 ## v1.32 (2014-01-16)
