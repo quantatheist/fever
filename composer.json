@@ -1,0 +1,23 @@
+{
+  "name": "quantatheist/fever",
+  "description": "Personal development environment for the legacy Fever RSS reader",
+  "type": "project",
+  "require": {
+    "php": "^8.4",
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "ext-mysqli": "*",
+    "ext-dom": "*",
+    "ext-mbstring": "*",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "FeverModern\\": "src/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "platform-check": true
+  }
+}
