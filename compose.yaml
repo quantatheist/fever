@@ -1,0 +1,30 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "127.0.0.1:${FEVER_HTTP_PORT:-8080}:80"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      database:
+        condition: service_healthy
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: fever
+      MYSQL_USER: fever
+      MYSQL_PASSWORD: ${FEVER_DB_PASSWORD:-fever-dev-only}
+      MYSQL_ROOT_PASSWORD: ${FEVER_DB_ROOT_PASSWORD:-root-dev-only}
+    volumes:
+      - fever_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+
+volumes:
+  fever_mysql_data:
